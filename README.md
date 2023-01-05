@@ -1,1 +1,1 @@
-# campus-attendance-frontend
+# campus-config-frontend
