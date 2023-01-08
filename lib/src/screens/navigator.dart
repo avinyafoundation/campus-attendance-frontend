@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ShoolManagementSystem/src/screens/activity_details.dart';
 import 'package:ShoolManagementSystem/src/screens/avinya_type_details.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _SMSNavigatorState extends State<SMSNavigator> {
   final _signInKey = const ValueKey('Sign in');
   final _scaffoldKey = const ValueKey('App scaffold');
   final _avinyaTypeDetailsKey = const ValueKey('Avinya Type details screen');
+  final _activityDetailsKey = const ValueKey('Activity details screen');
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +40,17 @@ class _SMSNavigatorState extends State<SMSNavigator> {
 
     AvinyaType? selectedAvinyaType;
     if (pathTemplate == '/address_type/:id') {
-      selectedAvinyaType = campusConfigSystemInstance.avinyaTypes
+      selectedAvinyaType = campusAttendanceSystemInstance.avinyaTypes
           ?.firstWhereOrNull(
               (at) => at.id.toString() == routeState.route.parameters['id']);
+    }
+
+    Activity? selectedActivity;
+    if (pathTemplate == '/activity/:id') {
+      selectedActivity = campusAttendanceSystemInstance
+          .activity!.child_activities!
+          .firstWhereOrNull(
+              (a) => a.id.toString() == routeState.route.parameters['id']);
     }
 
     if (pathTemplate == '/#access_token') {
@@ -57,6 +67,11 @@ class _SMSNavigatorState extends State<SMSNavigator> {
         if (route.settings is Page &&
             (route.settings as Page).key == _avinyaTypeDetailsKey) {
           routeState.go('/avinya_types/popular');
+        }
+
+        if (route.settings is Page &&
+            (route.settings as Page).key == _activityDetailsKey) {
+          routeState.go('/activities/popular');
         }
 
         return route.didPop(result);
@@ -98,14 +113,13 @@ class _SMSNavigatorState extends State<SMSNavigator> {
                 avinyaType: selectedAvinyaType,
               ),
             )
-
-          // else if (selectedEmployee != null)
-          //   MaterialPage<void>(
-          //     key: _employeeDetailsKey,
-          //     child: EmployeeDetailsScreen(
-          //       employee: selectedEmployee,
-          //     ),
-          //   )
+          else if (selectedActivity != null)
+            MaterialPage<void>(
+              key: _activityDetailsKey,
+              child: ActivityDetailsScreen(
+                activity: selectedActivity,
+              ),
+            )
         ],
       ],
     );

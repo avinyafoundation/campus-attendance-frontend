@@ -45,11 +45,11 @@ class Address {
 
 Future<List<Address>> fetchAddresss() async {
   final response = await http.get(
-    Uri.parse(AppConfig.campusConfigBffApiUrl + '/address'),
+    Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/address'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'accept': 'application/json',
-      'Authorization': 'Bearer ' + AppConfig.campusConfigBffApiKey,
+      'Authorization': 'Bearer ' + AppConfig.campusAttendanceBffApiKey,
     },
   );
 
@@ -67,11 +67,11 @@ Future<List<Address>> fetchAddresss() async {
 
 Future<Address> fetchAddress(String id) async {
   final response = await http.get(
-    Uri.parse(AppConfig.campusConfigBffApiUrl + '/address/$id'),
+    Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/address/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'accept': 'application/json',
-      'Authorization': 'Bearer ' + AppConfig.campusConfigBffApiKey,
+      'Authorization': 'Bearer ' + AppConfig.campusAttendanceBffApiKey,
     },
   );
 
@@ -85,10 +85,10 @@ Future<Address> fetchAddress(String id) async {
 
 Future<Address> createAddress(Address address) async {
   final response = await http.post(
-    Uri.parse(AppConfig.campusConfigBffApiUrl + '/address'),
+    Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/address'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ' + AppConfig.campusConfigBffApiKey,
+      'Authorization': 'Bearer ' + AppConfig.campusAttendanceBffApiKey,
     },
     body: jsonEncode(address.toJson()),
   );
@@ -105,10 +105,10 @@ Future<Address> createAddress(Address address) async {
 
 Future<http.Response> updateAddress(Address address) async {
   final response = await http.put(
-    Uri.parse(AppConfig.campusConfigBffApiUrl + '/address'),
+    Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/address'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ' + AppConfig.campusConfigBffApiKey,
+      'Authorization': 'Bearer ' + AppConfig.campusAttendanceBffApiKey,
     },
     body: jsonEncode(address.toJson()),
   );
@@ -121,10 +121,10 @@ Future<http.Response> updateAddress(Address address) async {
 
 Future<http.Response> deleteAddress(String id) async {
   final http.Response response = await http.delete(
-    Uri.parse(AppConfig.campusConfigBffApiUrl + '/address/$id'),
+    Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/address/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ' + AppConfig.campusConfigBffApiKey,
+      'Authorization': 'Bearer ' + AppConfig.campusAttendanceBffApiKey,
     },
   );
 

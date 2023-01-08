@@ -579,7 +579,7 @@ class _PreconditionsScreenState extends State<PreconditionsScreen> {
         log('addSudentApplicantConsent valid');
         log(_phone_Controller.text);
         log(phoneMaskTextInputFormatter.getUnmaskedText());
-        campusConfigSystemInstance.setPrecondisionsSubmitted(true);
+        campusAttendanceSystemInstance.setPrecondisionsSubmitted(true);
         final ApplicantConsent applicantConsent = ApplicantConsent(
           name: _full_name_Controller.text,
           date_of_birth: DateFormat('yyyy-MM-dd').format(dateOfBirth),

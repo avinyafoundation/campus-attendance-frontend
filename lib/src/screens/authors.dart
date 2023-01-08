@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/campus_config_system.dart';
+import '../data/campus_attendance_system.dart';
 import '../routing.dart';
 import '../widgets/author_list.dart';
 
@@ -15,7 +15,7 @@ class AuthorsScreen extends StatelessWidget {
           title: Text(title),
         ),
         body: AuthorList(
-          authors: campusConfigSystemInstance.allAuthors,
+          authors: campusAttendanceSystemInstance.allAuthors,
           onTap: (author) {
             RouteStateScope.of(context).go('/author/${author.id}');
           },

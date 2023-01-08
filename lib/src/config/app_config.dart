@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 
 class AppConfig {
   static String apiUrl = 'http://localhost:8080';
-  static String campusConfigBffApiUrl = 'http://localhost:6060';
-  static String campusConfigBffApiKey = '';
+  static String campusAttendanceBffApiUrl = 'http://localhost:6060';
+  static String campusAttendanceBffApiKey = '';
   static String choreoSTSEndpoint = "https://sts.choreo.dev/oauth2/token";
   static String choreoSTSClientID = "";
   static String asgardeoTokenEndpoint =
@@ -14,6 +14,7 @@ class AppConfig {
   static var apiTokens = null;
   static String applicationName = 'Avinya Academy Campus - Config Portal';
   static String applicationVersion = '0.1.0';
+  static String mainCampusActivity = 'school-day';
 
   //AppConfig({required this.apiUrl});
 
@@ -30,7 +31,7 @@ class AppConfig {
 
     // decode our json
     final json = jsonDecode(contents);
-    campusConfigBffApiUrl = json['campusConfigBffApiUrl'];
+    campusAttendanceBffApiUrl = json['campusAttendanceBffApiUrl'];
 
     // convert our JSON into an instance of our AppConfig class
     return AppConfig();

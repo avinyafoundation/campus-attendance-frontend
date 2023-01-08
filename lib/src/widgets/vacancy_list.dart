@@ -47,7 +47,7 @@ class VacancyListState extends State<VacancyList> {
     super.initState();
     try {
       futureVacancys = fetchVacancies();
-      campusConfigSystemInstance.setVacancies(futureVacancys!);
+      campusAttendanceSystemInstance.setVacancies(futureVacancys!);
     } catch (e) {
       log(e.toString());
     }
@@ -55,10 +55,10 @@ class VacancyListState extends State<VacancyList> {
 
   Future<List<Vacancy>> refreshVacancyState() async {
     //futureVacancys = fetchVacancies();
-    futureVacancys = campusConfigSystemInstance.getVacancies();
+    futureVacancys = campusAttendanceSystemInstance.getVacancies();
     if (futureVacancys == null) {
       futureVacancys = fetchVacancies();
-      campusConfigSystemInstance.setVacancies(futureVacancys!);
+      campusAttendanceSystemInstance.setVacancies(futureVacancys!);
     }
     return futureVacancys!;
   }
@@ -281,10 +281,10 @@ class VacancyListState extends State<VacancyList> {
   Future<bool> addSudentApplicantEvaluation(BuildContext context) async {
     try {
       if (_formKey.currentState!.validate()) {
-        campusConfigSystemInstance
+        campusAttendanceSystemInstance
             .fetchPersonForUser(); // do a fetch to help cross check
-        Person person = campusConfigSystemInstance.getStudentPerson();
-        if (campusConfigSystemInstance.getJWTSub() != person.jwt_sub_id) {
+        Person person = campusAttendanceSystemInstance.getStudentPerson();
+        if (campusAttendanceSystemInstance.getJWTSub() != person.jwt_sub_id) {
           // the person has not logged in to the system
           // we can record the test responses against that person
           return false;

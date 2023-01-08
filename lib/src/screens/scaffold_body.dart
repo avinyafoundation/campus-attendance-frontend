@@ -1,3 +1,4 @@
+import 'package:ShoolManagementSystem/src/screens/activities.dart';
 import 'package:ShoolManagementSystem/src/screens/avinya_types.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,11 @@ class SMSScaffoldBody extends StatelessWidget {
           const FadeTransitionPage<void>(
             key: ValueKey('avinya_types'),
             child: AvinyaTypeScreen(),
+          )
+        else if (currentRoute.pathTemplate.startsWith('/activities'))
+          const FadeTransitionPage<void>(
+            key: ValueKey('activites'),
+            child: ActivityScreen(),
           )
 
         // Avoid building a Navigator with an empty `pages` list when the

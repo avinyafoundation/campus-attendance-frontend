@@ -34,7 +34,7 @@ class AvinyaTypeListState extends State<AvinyaTypeList> {
       future: refreshAvinyaTypeState(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          campusConfigSystemInstance.setAvinyaTypes(snapshot.data);
+          campusAttendanceSystemInstance.setAvinyaTypes(snapshot.data);
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) => ListTile(

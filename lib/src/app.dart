@@ -1,22 +1,22 @@
 import 'dart:developer';
 
-import 'package:ShoolManagementSystem/src/data/campus_config_system.dart';
+// import 'package:ShoolManagementSystem/src/data/campus_attendance_system.dart';
 import 'package:flutter/material.dart';
 
 import 'auth.dart';
 import 'routing.dart';
 import 'screens/navigator.dart';
 
-class CampusConfigManagementSystem extends StatefulWidget {
-  const CampusConfigManagementSystem({super.key});
+class CampusAttendanceManagementSystem extends StatefulWidget {
+  const CampusAttendanceManagementSystem({super.key});
 
   @override
-  State<CampusConfigManagementSystem> createState() =>
-      _CampusConfigManagementSystemState();
+  State<CampusAttendanceManagementSystem> createState() =>
+      _CampusAttendanceManagementSystemState();
 }
 
-class _CampusConfigManagementSystemState
-    extends State<CampusConfigManagementSystem> {
+class _CampusAttendanceManagementSystemState
+    extends State<CampusAttendanceManagementSystem> {
   final _auth = SMSAuth();
   final _navigatorKey = GlobalKey<NavigatorState>();
   late final RouteState _routeState;
@@ -35,6 +35,12 @@ class _CampusConfigManagementSystemState
         '/avinya_type/:id',
         '/avinya_type/new',
         '/avinya_type/edit',
+        '/activities/new',
+        '/activities/all',
+        '/activities/popular',
+        '/activity/:id',
+        '/activity/new',
+        '/activity/edit',
         '/#access_token',
       ],
       guard: _guard,
@@ -84,12 +90,14 @@ class _CampusConfigManagementSystemState
 
   Future<ParsedRoute> _guard(ParsedRoute from) async {
     final signedIn = await _auth.getSignedIn();
-    String? jwt_sub = campusConfigSystemInstance.getJWTSub();
+    // String? jwt_sub = campusAttendanceSystemInstance.getJWTSub();
 
     final signInRoute = ParsedRoute('/signin', '/signin', {}, {});
 
     final avinyaTypesRoute =
         ParsedRoute('/avinya_types', '/avinya_types', {}, {});
+
+    final activitiesRoute = ParsedRoute('/activities', '/activities', {}, {});
 
     // // Go to /apply if the user is not signed in
     log("_guard signed in $signedIn");
@@ -98,13 +106,16 @@ class _CampusConfigManagementSystemState
 
     if (signedIn && from == avinyaTypesRoute) {
       return avinyaTypesRoute;
+    } else if (signedIn && from == activitiesRoute) {
+      return activitiesRoute;
     }
     // Go to /application if the user is signed in and tries to go to /signin.
     else if (signedIn && from == signInRoute) {
       return ParsedRoute('/avinya_types', '/avinya_types', {}, {});
-    } else if (signedIn && jwt_sub != null) {
-      return avinyaTypesRoute;
     }
+    // else if (signedIn && jwt_sub != null) {
+    //   return avinyaTypesRoute;
+    // }
     return from;
   }
 

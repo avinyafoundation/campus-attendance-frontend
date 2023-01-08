@@ -160,7 +160,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
         future: fetchStudentPerson(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            campusConfigSystemInstance.setStudentPerson(snapshot.data!);
+            campusAttendanceSystemInstance.setStudentPerson(snapshot.data!);
             routeState.go('/application');
           } else if (snapshot.hasError) {
             return Scaffold(
@@ -384,7 +384,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
                                         content:
                                             Text('You applied successfully')),
                                   );
-                                  campusConfigSystemInstance
+                                  campusAttendanceSystemInstance
                                       .setApplicationSubmitted(true);
 
                                   await routeState.go('/tests/logical');
@@ -423,7 +423,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
   Future<Person> fetchStudentPerson() async {
     // check if user is in Avinya database person table as a student
     try {
-      this.futurePerson = fetchPerson(campusConfigSystemInstance.getJWTSub()!);
+      this.futurePerson =
+          fetchPerson(campusAttendanceSystemInstance.getJWTSub()!);
     } catch (e) {
       print(
           'AdmissionSystem fetchPersonForUser :: Error fetching person for user');
@@ -474,8 +475,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
             phone: int.parse(phoneMaskTextInputFormatter.getUnmaskedText()),
             email: _email_Controller.text,
             mailing_address_id: studentAddress.id,
-            jwt_sub_id: campusConfigSystemInstance.getJWTSub(),
-            jwt_email: campusConfigSystemInstance.getJWTEmail(),
+            jwt_sub_id: campusAttendanceSystemInstance.getJWTSub(),
+            jwt_email: campusAttendanceSystemInstance.getJWTEmail(),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -483,11 +484,11 @@ class _ApplyScreenState extends State<ApplyScreen> {
           );
           studentPerson = await createPerson(person);
 
-          campusConfigSystemInstance.setStudentPerson(studentPerson);
+          campusAttendanceSystemInstance.setStudentPerson(studentPerson);
 
           final Application application = Application(
             person_id: studentPerson.id,
-            vacancy_id: campusConfigSystemInstance.getVacancyId(),
+            vacancy_id: campusAttendanceSystemInstance.getVacancyId(),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -495,7 +496,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
           );
 
           createdApplication = await createApplication(application);
-          campusConfigSystemInstance.setApplication(createdApplication);
+          campusAttendanceSystemInstance.setApplication(createdApplication);
 
           log(createdApplication.toString());
 

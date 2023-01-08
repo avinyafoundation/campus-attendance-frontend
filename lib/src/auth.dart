@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:html';
 
-import 'package:ShoolManagementSystem/src/data/campus_config_system.dart';
+import 'package:ShoolManagementSystem/src/data/campus_attendance_system.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -37,8 +37,8 @@ class SMSAuth extends ChangeNotifier {
             print("access_token -- Key : $key, Value : $value"));
 
         // capture token information to help map the sing in user to Avinya person
-        campusConfigSystemInstance.setJWTSub(decodedAccessToken["sub"]);
-        campusConfigSystemInstance.setJWTEmail(decodedAccessToken["email"]);
+        campusAttendanceSystemInstance.setJWTSub(decodedAccessToken["sub"]);
+        campusAttendanceSystemInstance.setJWTEmail(decodedAccessToken["email"]);
 
         bool isTokenExpired = JwtDecoder.isExpired(_openid_tokens["id_token"]);
         print("Open ID token is expired $isTokenExpired");
@@ -95,7 +95,7 @@ class SMSAuth extends ChangeNotifier {
             _api_tokens
               ..forEach((key, value) =>
                   print("API tokens Key : $key, Value : $value"));
-            AppConfig.campusConfigBffApiKey = _api_tokens["access_token"];
+            AppConfig.campusAttendanceBffApiKey = _api_tokens["access_token"];
             print('Fetch API tokens success');
           } else {
             print('Failed to fetch API key');
@@ -111,7 +111,7 @@ class SMSAuth extends ChangeNotifier {
     }
 
     if (_signedIn) {
-      campusConfigSystemInstance.fetchPersonForUser();
+      campusAttendanceSystemInstance.fetchPersonForUser();
     }
 
     return _signedIn;

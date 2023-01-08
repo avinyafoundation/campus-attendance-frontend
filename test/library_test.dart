@@ -1,10 +1,10 @@
-import 'package:ShoolManagementSystem/src/data/campus_config_system.dart';
+import 'package:ShoolManagementSystem/src/data/campus_attendance_system.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('Library', () {
     test('addBook', () {
-      final library = CampusConfigSystem();
+      final library = CampusAttendanceSystem();
       library.addBook(
           title: 'Left Hand of Darkness',
           authorName: 'Ursula K. Le Guin',

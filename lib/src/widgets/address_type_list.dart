@@ -34,7 +34,7 @@ class AddressTypeListState extends State<AddressTypeList> {
       future: refreshAddressTypeState(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          campusConfigSystemInstance.setAddressTypes(snapshot.data);
+          campusAttendanceSystemInstance.setAddressTypes(snapshot.data);
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) => ListTile(

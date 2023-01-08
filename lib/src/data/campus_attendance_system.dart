@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:ShoolManagementSystem/src/data.dart';
 
-final campusConfigSystemInstance = CampusConfigSystem()
+final campusAttendanceSystemInstance = CampusAttendanceSystem()
   ..addBook(
       title: 'Left Hand of Darkness',
       authorName: 'Ursula K. Le Guin',
@@ -24,7 +24,7 @@ final campusConfigSystemInstance = CampusConfigSystem()
       isPopular: false,
       isNew: false);
 
-class CampusConfigSystem {
+class CampusAttendanceSystem {
   final List<Book> allBooks = [];
   final List<Author> allAuthors = [];
   List<Employee>? allEmployees = [];
@@ -32,6 +32,7 @@ class CampusConfigSystem {
   List<Person>? persons = [];
   late Future<List<Vacancy>>? vacancies;
   List<AvinyaType>? avinyaTypes = [];
+  Activity? activity;
   bool precondisionsSubmitted = false;
   bool applicationSubmitted = false;
   final String schoolName = 'Bandaragama';
@@ -124,6 +125,10 @@ class CampusConfigSystem {
     this.avinyaTypes = avinyaTypes;
   }
 
+  void setActivity(Activity? activity) {
+    this.activity = activity;
+  }
+
   Future<List<Vacancy>>? getVacancies() {
     return vacancies;
   }
@@ -131,7 +136,7 @@ class CampusConfigSystem {
   void fetchPersonForUser() async {
     // check if user is in Avinya database person table as a student
     try {
-      Person person = campusConfigSystemInstance.getStudentPerson();
+      Person person = campusAttendanceSystemInstance.getStudentPerson();
       if (person.jwt_sub_id == null ||
           person.jwt_sub_id != this.user_jwt_sub!) {
         person = await fetchPerson(this.user_jwt_sub!);

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:ShoolManagementSystem/src/data/campus_config_system.dart';
+import 'package:ShoolManagementSystem/src/data/campus_attendance_system.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -67,13 +67,13 @@ class Vacancy {
 
 Future<List<Vacancy>> fetchVacancies() async {
   final response = await http.get(
-    Uri.parse(AppConfig.campusConfigBffApiUrl +
+    Uri.parse(AppConfig.campusAttendanceBffApiUrl +
         '/student_vacancies/' +
-        campusConfigSystemInstance.getSchoolName()),
+        campusAttendanceSystemInstance.getSchoolName()),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'accept': 'application/json',
-      'Authorization': 'Bearer ' + AppConfig.campusConfigBffApiKey,
+      'Authorization': 'Bearer ' + AppConfig.campusAttendanceBffApiKey,
     },
   );
 

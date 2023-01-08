@@ -21,22 +21,22 @@ class ApplicationDetailsState extends State<ApplicationDetails> {
   @override
   void initState() {
     super.initState();
-    if (campusConfigSystemInstance.getStudentPerson().id == null) {
-      campusConfigSystemInstance.fetchPersonForUser();
+    if (campusAttendanceSystemInstance.getStudentPerson().id == null) {
+      campusAttendanceSystemInstance.fetchPersonForUser();
     }
-    if (campusConfigSystemInstance.getStudentPerson().id != null) {
-      futureApplication =
-          fetchApplication(campusConfigSystemInstance.getStudentPerson().id!);
+    if (campusAttendanceSystemInstance.getStudentPerson().id != null) {
+      futureApplication = fetchApplication(
+          campusAttendanceSystemInstance.getStudentPerson().id!);
     }
   }
 
   Future<Application> refreshApplicationState() async {
-    if (campusConfigSystemInstance.getStudentPerson().id == null) {
-      campusConfigSystemInstance.fetchPersonForUser();
+    if (campusAttendanceSystemInstance.getStudentPerson().id == null) {
+      campusAttendanceSystemInstance.fetchPersonForUser();
     }
-    if (campusConfigSystemInstance.getStudentPerson().id != null) {
-      futureApplication =
-          fetchApplication(campusConfigSystemInstance.getStudentPerson().id!);
+    if (campusAttendanceSystemInstance.getStudentPerson().id != null) {
+      futureApplication = fetchApplication(
+          campusAttendanceSystemInstance.getStudentPerson().id!);
     }
     return futureApplication;
   }
@@ -45,10 +45,10 @@ class ApplicationDetailsState extends State<ApplicationDetails> {
   Widget build(BuildContext context) {
     final routeState = RouteStateScope.of(context);
     try {
-      campusConfigSystemInstance
+      campusAttendanceSystemInstance
           .fetchPersonForUser(); // do a fetch to help cross check
-      Person person = campusConfigSystemInstance.getStudentPerson();
-      if (campusConfigSystemInstance.getJWTSub() != person.jwt_sub_id) {
+      Person person = campusAttendanceSystemInstance.getStudentPerson();
+      if (campusAttendanceSystemInstance.getJWTSub() != person.jwt_sub_id) {
         // the person has not logged in
         routeState.go('/signin');
         return Container();
@@ -61,7 +61,7 @@ class ApplicationDetailsState extends State<ApplicationDetails> {
       future: refreshApplicationState(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          campusConfigSystemInstance.setApplication(snapshot.data);
+          campusAttendanceSystemInstance.setApplication(snapshot.data);
           return ListView.builder(
             itemCount: snapshot.data!.statuses.length,
             itemBuilder: (context, index) => ListTile(

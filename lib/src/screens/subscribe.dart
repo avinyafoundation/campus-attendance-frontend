@@ -439,7 +439,7 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
         log('addProspect form valid');
         log(_phone_Controller.text);
         log(phoneMaskTextInputFormatter.getUnmaskedText());
-        campusConfigSystemInstance.setPrecondisionsSubmitted(true);
+        campusAttendanceSystemInstance.setPrecondisionsSubmitted(true);
         final Prospect prospect = Prospect(
             name: _name_Controller.text,
             phone: int.parse(phoneMaskTextInputFormatter.getUnmaskedText()),

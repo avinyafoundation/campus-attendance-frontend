@@ -33,11 +33,11 @@ Future<void> main() async {
       'asgardeo_client_id',
       defaultValue: 'undefined');
 
-  log(AppConfig.campusConfigBffApiUrl);
+  log(AppConfig.campusAttendanceBffApiUrl);
   log(AppConfig.choreoSTSClientID);
   log(AppConfig.asgardeoClientId);
 
-  runApp(const CampusConfigManagementSystem());
+  runApp(const CampusAttendanceManagementSystem());
 }
 
 const double windowWidth = 480;

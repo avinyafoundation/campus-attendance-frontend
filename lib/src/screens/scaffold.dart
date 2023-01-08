@@ -11,6 +11,7 @@ import 'scaffold_body.dart';
 class SMSScaffold extends StatelessWidget {
   static const pageNames = [
     '/avinya_types/popular',
+    '/activities/popular',
   ];
 
   const SMSScaffold({
@@ -81,6 +82,10 @@ class SMSScaffold extends StatelessWidget {
             icon: Icons.type_specimen,
           ),
           AdaptiveScaffoldDestination(
+            title: 'Activities',
+            icon: Icons.list_alt,
+          ),
+          AdaptiveScaffoldDestination(
             title: 'Tests',
             icon: Icons.text_snippet,
           ),
@@ -95,7 +100,7 @@ class SMSScaffold extends StatelessWidget {
                   applicationName: AppConfig.applicationName,
                   applicationVersion: AppConfig.applicationVersion);
             }),
-        new Text("© 2022, Avinya Foundation."),
+        new Text("© 2023, Avinya Foundation."),
       ],
     );
   }

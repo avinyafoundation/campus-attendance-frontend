@@ -34,7 +34,7 @@ class PersonListState extends State<PersonList> {
       future: refreshPersonState(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          campusConfigSystemInstance.setPersons(snapshot.data);
+          campusAttendanceSystemInstance.setPersons(snapshot.data);
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) => ListTile(
