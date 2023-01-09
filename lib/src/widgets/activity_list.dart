@@ -39,55 +39,63 @@ class ActivityListState extends State<ActivityList> {
         if (snapshot.hasData) {
           log(snapshot.data!.toString());
           campusAttendanceSystemInstance.setActivity(snapshot.data);
-          return Text(snapshot.data!.name!);
-          // return ListView.builder(
-          //   itemCount: snapshot.data!.child_activities!.length,
-          //   itemBuilder: (context, index) => ListTile(
-          //     title: Text(
-          //       (snapshot.data!.child_activities![index].name ?? ''),
-          //     ),
-          //     subtitle: Text(
-          //       ' ' +
-          //           (snapshot.data!.child_activities![index].description ??
-          //               '') +
-          //           ' ' +
-          //           (snapshot.data!.child_activities![index].notes ?? '') +
-          //           ' ' +
-          //           (snapshot.data!.child_activities![index].created ?? '') +
-          //           ' ' +
-          //           (snapshot.data!.child_activities![index].updated ?? '') +
-          //           ' ',
-          //     ),
-          //     trailing: Row(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         IconButton(
-          //             onPressed: () async {
-          //               Navigator.of(context)
-          //                   .push<void>(
-          //                     MaterialPageRoute<void>(
-          //                       builder: (context) => EditActivityPage(
-          //                           avinyaType: snapshot
-          //                               .data!.child_activities![index]),
-          //                     ),
-          //                   )
-          //                   .then((value) => setState(() {}));
-          //             },
-          //             icon: const Icon(Icons.edit)),
-          //         IconButton(
-          //             onPressed: () async {
-          //               await _deleteActivity(
-          //                   snapshot.data!.child_activities![index]);
-          //               setState(() {});
-          //             },
-          //             icon: const Icon(Icons.delete)),
-          //       ],
-          //     ),
-          //     onTap: onTap != null
-          //         ? () => onTap!(snapshot.data!.child_activities![index])
-          //         : null,
-          //   ),
-          // );
+          // return Text(snapshot.data!.name!);
+          return ListView.builder(
+            itemCount: snapshot.data!.child_activities!.length,
+            itemBuilder: (context, index) => ListTile(
+              leading: Text(
+                snapshot.data!.name! +
+                    ' activity ' +
+                    ((snapshot.data!.child_activities![index].id ?? 0) - 1)
+                        .toString(),
+              ),
+              title: Text(
+                (snapshot.data!.child_activities![index].name ?? ''),
+              ),
+              subtitle: Text(
+                'Activity Instances ' +
+                    (snapshot.data!.child_activities![index].activity_instances
+                            ?.length
+                            .toString() ??
+                        '') +
+                    ' ' +
+                    (snapshot.data!.child_activities![index].notes ?? '') +
+                    ' ' +
+                    (snapshot.data!.child_activities![index].created ?? '') +
+                    ' ' +
+                    (snapshot.data!.child_activities![index].updated ?? '') +
+                    ' ',
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      onPressed: () async {
+                        Navigator.of(context)
+                            .push<void>(
+                              MaterialPageRoute<void>(
+                                builder: (context) => EditActivityPage(
+                                    avinyaType: snapshot
+                                        .data!.child_activities![index]),
+                              ),
+                            )
+                            .then((value) => setState(() {}));
+                      },
+                      icon: const Icon(Icons.edit)),
+                  IconButton(
+                      onPressed: () async {
+                        await _deleteActivity(
+                            snapshot.data!.child_activities![index]);
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.delete)),
+                ],
+              ),
+              onTap: onTap != null
+                  ? () => onTap!(snapshot.data!.child_activities![index])
+                  : null,
+            ),
+          );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
@@ -98,7 +106,6 @@ class ActivityListState extends State<ActivityList> {
     );
   }
 
-  // ignore: unused_element
   Future<void> _deleteActivity(Activity avinyaType) async {
     try {
       await deleteActivity(avinyaType.id!.toString());

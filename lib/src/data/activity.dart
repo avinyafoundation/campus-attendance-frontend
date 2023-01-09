@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ShoolManagementSystem/src/data/activity_instance.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -15,6 +16,7 @@ class Activity {
   String? description;
   int? id;
   String? updated;
+  List<ActivityInstance>? activity_instances;
 
   Activity({
     this.notes,
@@ -26,6 +28,7 @@ class Activity {
     this.description,
     this.id,
     this.updated,
+    this.activity_instances,
   });
 
   factory Activity.fromJson(Map<String, dynamic> json) {
@@ -42,6 +45,10 @@ class Activity {
           ?.toList(),
       child_activities: json['child_activities']
           ?.map<Activity>((activity_json) => Activity.fromJson(activity_json))
+          ?.toList(),
+      activity_instances: json['activity_instances']
+          ?.map<ActivityInstance>((activity_instance_json) =>
+              ActivityInstance.fromJson(activity_instance_json))
           ?.toList(),
     );
   }
@@ -60,6 +67,10 @@ class Activity {
         if (child_activities != null)
           'child_activities':
               child_activities?.map((activity) => activity.toJson()).toList(),
+        if (activity_instances != null)
+          'activity_instances': activity_instances
+              ?.map((activity_instance) => activity_instance.toJson())
+              .toList(),
       };
 }
 
