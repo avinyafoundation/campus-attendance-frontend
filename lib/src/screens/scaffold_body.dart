@@ -1,5 +1,7 @@
 import 'package:ShoolManagementSystem/src/screens/activities.dart';
 import 'package:ShoolManagementSystem/src/screens/avinya_types.dart';
+import 'package:ShoolManagementSystem/src/screens/attendance_marker.dart';
+
 import 'package:flutter/material.dart';
 
 import '../routing.dart';
@@ -34,6 +36,11 @@ class SMSScaffoldBody extends StatelessWidget {
           const FadeTransitionPage<void>(
             key: ValueKey('activites'),
             child: ActivityScreen(),
+          )
+        else if (currentRoute.pathTemplate.startsWith('/attendance_marker'))
+          const FadeTransitionPage<void>(
+            key: ValueKey('attendance_marker'),
+            child: AttendanceMarkerScreen(),
           )
 
         // Avoid building a Navigator with an empty `pages` list when the

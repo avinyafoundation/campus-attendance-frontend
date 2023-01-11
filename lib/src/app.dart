@@ -41,6 +41,7 @@ class _CampusAttendanceManagementSystemState
         '/activity/:id',
         '/activity/new',
         '/activity/edit',
+        '/attendance_marker',
         '/#access_token',
       ],
       guard: _guard,
@@ -99,6 +100,9 @@ class _CampusAttendanceManagementSystemState
 
     final activitiesRoute = ParsedRoute('/activities', '/activities', {}, {});
 
+    final attendanceMarkerRoute =
+        ParsedRoute('/attendance_marker', '/attendance_marker', {}, {});
+
     // // Go to /apply if the user is not signed in
     log("_guard signed in $signedIn");
     // log("_guard JWT sub ${jwt_sub}");
@@ -108,6 +112,8 @@ class _CampusAttendanceManagementSystemState
       return avinyaTypesRoute;
     } else if (signedIn && from == activitiesRoute) {
       return activitiesRoute;
+    } else if (signedIn && from == attendanceMarkerRoute) {
+      return attendanceMarkerRoute;
     }
     // Go to /application if the user is signed in and tries to go to /signin.
     else if (signedIn && from == signInRoute) {

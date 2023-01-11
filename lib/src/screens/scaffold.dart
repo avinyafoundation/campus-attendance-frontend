@@ -12,6 +12,7 @@ class SMSScaffold extends StatelessWidget {
   static const pageNames = [
     '/avinya_types/popular',
     '/activities/popular',
+    '/attendance_marker',
   ];
 
   const SMSScaffold({
@@ -27,7 +28,7 @@ class SMSScaffold extends StatelessWidget {
       body: AdaptiveNavigationScaffold(
         selectedIndex: selectedIndex,
         appBar: AppBar(
-          title: const Text('Avinya Academy - Campus Config Portal'),
+          title: const Text('Avinya Academy - Campus Attendance Portal'),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.logout),
@@ -84,6 +85,10 @@ class SMSScaffold extends StatelessWidget {
           AdaptiveScaffoldDestination(
             title: 'Activities',
             icon: Icons.list_alt,
+          ),
+          AdaptiveScaffoldDestination(
+            title: 'Attendance Marker',
+            icon: Icons.qr_code_scanner,
           ),
           AdaptiveScaffoldDestination(
             title: 'Tests',

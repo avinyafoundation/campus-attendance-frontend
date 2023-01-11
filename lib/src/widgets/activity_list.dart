@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ShoolManagementSystem/src/config/app_config.dart';
 import 'package:flutter/material.dart';
 
@@ -37,9 +35,7 @@ class ActivityListState extends State<ActivityList> {
       future: refreshActivityState(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          log(snapshot.data!.toString());
           campusAttendanceSystemInstance.setActivity(snapshot.data);
-          // return Text(snapshot.data!.name!);
           return ListView.builder(
             itemCount: snapshot.data!.child_activities!.length,
             itemBuilder: (context, index) => ListTile(

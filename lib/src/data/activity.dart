@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ShoolManagementSystem/src/data/activity_instance.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -94,10 +92,6 @@ Future<Activity> fetchActivity(String name) async {
       .get(Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/activity/$name'));
 
   if (response.statusCode == 200) {
-    //var resultsJson = json.decode(response.body).cast<Map<String, dynamic>>();
-    // Activity activity =
-    //     await resultsJson.map<Activity>((json) => Activity.fromJson(json));
-    log(response.body);
     Activity activity = Activity.fromJson(json.decode(response.body));
     return activity;
   } else {
