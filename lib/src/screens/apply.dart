@@ -160,7 +160,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
         future: fetchStudentPerson(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            campusAttendanceSystemInstance.setStudentPerson(snapshot.data!);
+            campusAttendanceSystemInstance.setUserPerson(snapshot.data!);
             routeState.go('/application');
           } else if (snapshot.hasError) {
             return Scaffold(
@@ -484,7 +484,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
           );
           studentPerson = await createPerson(person);
 
-          campusAttendanceSystemInstance.setStudentPerson(studentPerson);
+          campusAttendanceSystemInstance.setUserPerson(studentPerson);
 
           final Application application = Application(
             person_id: studentPerson.id,

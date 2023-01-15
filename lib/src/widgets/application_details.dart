@@ -21,22 +21,22 @@ class ApplicationDetailsState extends State<ApplicationDetails> {
   @override
   void initState() {
     super.initState();
-    if (campusAttendanceSystemInstance.getStudentPerson().id == null) {
+    if (campusAttendanceSystemInstance.getUserPerson().id == null) {
       campusAttendanceSystemInstance.fetchPersonForUser();
     }
-    if (campusAttendanceSystemInstance.getStudentPerson().id != null) {
-      futureApplication = fetchApplication(
-          campusAttendanceSystemInstance.getStudentPerson().id!);
+    if (campusAttendanceSystemInstance.getUserPerson().id != null) {
+      futureApplication =
+          fetchApplication(campusAttendanceSystemInstance.getUserPerson().id!);
     }
   }
 
   Future<Application> refreshApplicationState() async {
-    if (campusAttendanceSystemInstance.getStudentPerson().id == null) {
+    if (campusAttendanceSystemInstance.getUserPerson().id == null) {
       campusAttendanceSystemInstance.fetchPersonForUser();
     }
-    if (campusAttendanceSystemInstance.getStudentPerson().id != null) {
-      futureApplication = fetchApplication(
-          campusAttendanceSystemInstance.getStudentPerson().id!);
+    if (campusAttendanceSystemInstance.getUserPerson().id != null) {
+      futureApplication =
+          fetchApplication(campusAttendanceSystemInstance.getUserPerson().id!);
     }
     return futureApplication;
   }
@@ -47,7 +47,7 @@ class ApplicationDetailsState extends State<ApplicationDetails> {
     try {
       campusAttendanceSystemInstance
           .fetchPersonForUser(); // do a fetch to help cross check
-      Person person = campusAttendanceSystemInstance.getStudentPerson();
+      Person person = campusAttendanceSystemInstance.getUserPerson();
       if (campusAttendanceSystemInstance.getJWTSub() != person.jwt_sub_id) {
         // the person has not logged in
         routeState.go('/signin');

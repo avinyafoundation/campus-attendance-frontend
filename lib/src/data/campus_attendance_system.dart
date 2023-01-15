@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:ShoolManagementSystem/src/data.dart';
+import 'package:ShoolManagementSystem/src/data/activity_instance.dart';
 
 final campusAttendanceSystemInstance = CampusAttendanceSystem()
   ..addBook(
@@ -22,7 +23,14 @@ final campusAttendanceSystemInstance = CampusAttendanceSystem()
       title: 'The Lathe of Heaven',
       authorName: 'Ursula K. Le Guin',
       isPopular: false,
-      isNew: false);
+      isNew: false)
+  ..setJWTSub('jwt-sub-id123')
+  ..setUserPerson(
+      Person(id: 2, jwt_sub_id: 'jwt-sub-id123', preferred_name: 'Nimal'))
+  ..setCheckinActivityInstance(ActivityInstance(
+    id: 1,
+  ))
+  ..setCheckoutActivityInstance(ActivityInstance(id: 11));
 
 class CampusAttendanceSystem {
   final List<Book> allBooks = [];
@@ -37,10 +45,12 @@ class CampusAttendanceSystem {
   bool applicationSubmitted = false;
   final String schoolName = 'Bandaragama';
   int vacancyId = 1; // todo - this needs to be fetched and set from the server
-  Person studentPerson = Person();
+  Person userPerson = Person();
   Application application = Application();
   String? user_jwt_sub;
   String? user_jwt_email;
+  ActivityInstance checkinActivityInstance = ActivityInstance();
+  ActivityInstance checkoutActivityInstance = ActivityInstance();
 
   void setVacancyId(int id) {
     vacancyId = id;
@@ -50,12 +60,12 @@ class CampusAttendanceSystem {
     return vacancyId;
   }
 
-  void setStudentPerson(Person person) {
-    studentPerson = person;
+  void setUserPerson(Person person) {
+    userPerson = person;
   }
 
-  Person getStudentPerson() {
-    return studentPerson;
+  Person getUserPerson() {
+    return userPerson;
   }
 
   void setApplication(Application? application) {
@@ -133,14 +143,30 @@ class CampusAttendanceSystem {
     return vacancies;
   }
 
+  void setCheckinActivityInstance(ActivityInstance? activityInstance) {
+    this.checkinActivityInstance = activityInstance!;
+  }
+
+  void setCheckoutActivityInstance(ActivityInstance? activityInstance) {
+    this.checkoutActivityInstance = activityInstance!;
+  }
+
+  ActivityInstance getCheckinActivityInstance() {
+    return this.checkinActivityInstance;
+  }
+
+  ActivityInstance getCheckoutActivityInstance() {
+    return this.checkoutActivityInstance;
+  }
+
   void fetchPersonForUser() async {
     // check if user is in Avinya database person table as a student
     try {
-      Person person = campusAttendanceSystemInstance.getStudentPerson();
+      Person person = campusAttendanceSystemInstance.getUserPerson();
       if (person.jwt_sub_id == null ||
           person.jwt_sub_id != this.user_jwt_sub!) {
         person = await fetchPerson(this.user_jwt_sub!);
-        this.studentPerson = person;
+        this.userPerson = person;
         log('AdmissionSystem fetchPersonForUser: ' +
             person.toJson().toString());
       }

@@ -283,7 +283,7 @@ class VacancyListState extends State<VacancyList> {
       if (_formKey.currentState!.validate()) {
         campusAttendanceSystemInstance
             .fetchPersonForUser(); // do a fetch to help cross check
-        Person person = campusAttendanceSystemInstance.getStudentPerson();
+        Person person = campusAttendanceSystemInstance.getUserPerson();
         if (campusAttendanceSystemInstance.getJWTSub() != person.jwt_sub_id) {
           // the person has not logged in to the system
           // we can record the test responses against that person

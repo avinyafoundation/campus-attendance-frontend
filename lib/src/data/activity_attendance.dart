@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -48,6 +50,7 @@ class ActivityAttendance {
 
 Future<ActivityAttendance> createActivityAttendance(
     ActivityAttendance activityAttendance) async {
+  log(activityAttendance.toString());
   final response = await http.post(
     Uri.parse(AppConfig.campusAttendanceBffApiUrl + '/activity_attendance'),
     headers: <String, String>{
@@ -55,9 +58,9 @@ Future<ActivityAttendance> createActivityAttendance(
     },
     body: jsonEncode(activityAttendance.toJson()),
   );
-  if (response.statusCode == 200) {
+  if (response.statusCode > 199 && response.statusCode < 300) {
     return ActivityAttendance.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to create Activity.');
+    throw Exception('Failed to create Activity Participant Attendance.');
   }
 }

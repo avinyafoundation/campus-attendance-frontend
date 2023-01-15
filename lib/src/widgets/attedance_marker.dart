@@ -1,4 +1,7 @@
+import 'package:ShoolManagementSystem/src/data/campus_attendance_system.dart';
 import 'package:flutter/material.dart';
+
+import '../data/activity_attendance.dart';
 
 class AttendanceMarker extends StatefulWidget {
   @override
@@ -11,6 +14,12 @@ class _AttendanceMarkerState extends State<AttendanceMarker> {
 
   void _handleCheckIn() {
     // call the API to check-in
+    createActivityAttendance(ActivityAttendance(
+      activity_instance_id:
+          campusAttendanceSystemInstance.getCheckinActivityInstance().id,
+      person_id: campusAttendanceSystemInstance.getUserPerson().id,
+      sign_in_time: DateTime.now().toString(),
+    ));
     setState(() {
       _isCheckedIn = true;
     });
@@ -19,6 +28,12 @@ class _AttendanceMarkerState extends State<AttendanceMarker> {
 
   void _handleCheckOut() {
     // call the API to check-out
+    createActivityAttendance(ActivityAttendance(
+      activity_instance_id:
+          campusAttendanceSystemInstance.getCheckoutActivityInstance().id,
+      person_id: campusAttendanceSystemInstance.getUserPerson().id,
+      sign_out_time: DateTime.now().toString(),
+    ));
     setState(() {
       _isCheckedOut = true;
     });
